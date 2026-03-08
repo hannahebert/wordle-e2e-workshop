@@ -1,0 +1,48 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-correct: #6aaa64;
+  --color-present: #c9b458;
+  --color-absent: #787c7e;
+  --color-empty: #ffffff;
+  --color-border: #d3d6da;
+  --color-text: #1a1a1b;
+  --color-key-bg: #d3d6da;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background: #fff;
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+header {
+  width: 100%;
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+  padding: 12px 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 16px;
+  width: 100%;
+  max-width: 500px;
+}

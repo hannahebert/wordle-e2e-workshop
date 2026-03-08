@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+packages/frontend/dist
+packages/backend/dist
+packages/shared/dist
+
+# Environment variables
+.env
+packages/**/.env
+
+# macOS
+.DS_Store
+
+# Vite
+packages/frontend/.vite
+
+# Cypress
+cypress/videos
+cypress/screenshots
+cypress/downloads
+
+# Editor
+.idea
+.vscode
+*.local
