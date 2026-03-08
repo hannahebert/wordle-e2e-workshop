@@ -1,24 +1,44 @@
-*,
-*::before,
-*::after {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 :root {
-  --color-correct: #6aaa64;
-  --color-present: #c9b458;
-  --color-absent: #787c7e;
-  --color-empty: #ffffff;
-  --color-border: #d3d6da;
-  --color-text: #1a1a1b;
-  --color-key-bg: #d3d6da;
+  --bg:                 #0f0f10;
+  --color-correct:      #538d4e;
+  --color-present:      #b59f3b;
+  --color-absent:       #3a3a3c;
+  --color-text:         #ffffff;
+  --color-key-bg:       #818384;
+  --tile-border:        #3a3a3c;
+  --tile-border-filled: #565758;
+  --header-border:      #2a2a2c;
+  --header-bg:          rgba(15, 15, 16, 0.85);
+  --toast-bg:           rgba(255, 255, 255, 0.92);
+  --toast-color:        #121213;
+}
+
+[data-theme='light'] {
+  --bg:                 #ffffff;
+  --color-correct:      #6aaa64;
+  --color-present:      #c9b458;
+  --color-absent:       #787c7e;
+  --color-text:         #1a1a1b;
+  --color-key-bg:       #d3d6da;
+  --tile-border:        #d3d6da;
+  --tile-border-filled: #878a8c;
+  --header-border:      #d3d6da;
+  --header-bg:          rgba(255, 255, 255, 0.85);
+  --toast-bg:           rgba(26, 26, 27, 0.92);
+  --toast-color:        #ffffff;
 }
 
 body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  background: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
   color: var(--color-text);
   display: flex;
   flex-direction: column;
@@ -26,23 +46,189 @@ body {
   min-height: 100vh;
 }
 
-header {
+/* ── Header ─────────────────────────────────── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   width: 100%;
-  border-bottom: 1px solid var(--color-border);
+  padding: 14px 0;
   text-align: center;
-  padding: 12px 0;
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+  background: var(--header-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--header-border);
 }
 
-main {
+/* ── Theme toggle ────────────────────────────── */
+
+.theme-toggle {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+  border-radius: 6px;
+  transition: transform 0.15s;
+}
+
+.theme-toggle:hover { transform: translateY(-50%) scale(1.15); }
+
+/* ── Layout ──────────────────────────────────── */
+.main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
-  padding: 24px 16px;
+  gap: 28px;
+  padding: 28px 16px;
   width: 100%;
   max-width: 500px;
 }
+
+/* ── Board ───────────────────────────────────── */
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.board__row {
+  display: flex;
+  gap: 6px;
+}
+
+.tile {
+  width: 62px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  user-select: none;
+  border: 2px solid var(--tile-border);
+  background: transparent;
+  color: var(--color-text);
+}
+
+.tile--filled {
+  border-color: var(--tile-border-filled);
+  animation: tile-pop 0.08s ease;
+}
+
+/* Status classes — used for non-revealing submitted tiles */
+.tile--correct { --tile-final-bg: var(--color-correct); background: var(--color-correct); border-color: var(--color-correct); color: #fff; }
+.tile--present { --tile-final-bg: var(--color-present); background: var(--color-present); border-color: var(--color-present); color: #fff; }
+.tile--absent  { --tile-final-bg: var(--color-absent);  background: var(--color-absent);  border-color: var(--color-absent);  color: #fff; }
+
+/* Reveal animation — overrides background until flip completes */
+.tile--revealing {
+  animation: reveal-tile 0.5s ease both;
+}
+
+@keyframes reveal-tile {
+  0%   { transform: scaleY(1); background: transparent;         border-color: var(--tile-border-filled); }
+  40%  { transform: scaleY(0); background: transparent;         border-color: var(--tile-border-filled); }
+  60%  { transform: scaleY(0); background: var(--tile-final-bg); border-color: var(--tile-final-bg); }
+  100% { transform: scaleY(1); background: var(--tile-final-bg); border-color: var(--tile-final-bg); }
+}
+
+@keyframes tile-pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* ── Keyboard ────────────────────────────────── */
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+
+.keyboard__row {
+  display: flex;
+  gap: 6px;
+}
+
+.key {
+  min-width: 43px;
+  height: 58px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-key-bg);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-transform: uppercase;
+  padding: 0 6px;
+  transition: background 0.15s, transform 0.08s, filter 0.15s;
+}
+
+.key:hover:not(:disabled) { filter: brightness(1.2); }
+.key:active:not(:disabled) { transform: scale(0.93); }
+.key:disabled { opacity: 0.55; cursor: default; }
+
+.key--wide { min-width: 65px; font-size: 0.72rem; }
+
+.key--correct { background: var(--color-correct); }
+.key--present { background: var(--color-present); }
+.key--absent  { background: var(--color-absent);  }
+
+/* ── Toast ───────────────────────────────────── */
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--toast-bg);
+  color: var(--toast-color);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  z-index: 100;
+  pointer-events: none;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  animation: toast-in 0.18s ease;
+}
+
+@keyframes toast-in {
+  from { transform: translateX(-50%) translateY(-10px); opacity: 0; }
+  to   { transform: translateX(-50%) translateY(0);    opacity: 1; }
+}
+
+/* ── New game button ─────────────────────────── */
+.new-game-btn {
+  margin-top: 8px;
+  padding: 12px 36px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--color-correct);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.08s;
+}
+
+.new-game-btn:hover  { filter: brightness(1.2); }
+.new-game-btn:active { transform: scale(0.97); }

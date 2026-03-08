@@ -7,6 +7,8 @@ import { startGame, submitGuess } from './api';
 
 const WORD_LENGTH = 5;
 const MAX_ATTEMPTS = 6;
+const REVEAL_DELAY_PER_TILE = 150;
+const REVEAL_DURATION = 500;
 
 function buildLetterStatuses(guesses: GuessResult[][]): Record<string, LetterStatus> {
   const priority: Record<LetterStatus, number> = { correct: 2, present: 1, absent: 0 };
@@ -27,24 +29,35 @@ export default function App() {
   const [currentInput, setCurrentInput] = useState('');
   const [gameStatus, setGameStatus] = useState<'in_progress' | 'won' | 'lost'>('in_progress');
   const [toast, setToast] = useState<string | null>(null);
+  const [revealingRow, setRevealingRow] = useState<number | null>(null);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  const toggleTheme = () =>
+    setTheme((t) => {
+      const next = t === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next === 'light' ? 'light' : '');
+      return next;
+    });
 
   const showToast = (msg: string, durationMs = 2000) => {
     setToast(msg);
     setTimeout(() => setToast(null), durationMs);
   };
 
-  useEffect(() => {
+  const newGame = () =>
     startGame().then((res) => {
       setGameId(res.gameId);
       setGuesses([]);
       setCurrentInput('');
       setGameStatus('in_progress');
+      setRevealingRow(null);
     });
-  }, []);
+
+  useEffect(() => { newGame(); }, []);
 
   const handleKey = useCallback(
     async (key: string) => {
-      if (gameStatus !== 'in_progress' || !gameId) return;
+      if (gameStatus !== 'in_progress' || !gameId || revealingRow !== null) return;
 
       if (key === 'enter') {
         if (currentInput.length < WORD_LENGTH) {
@@ -54,11 +67,19 @@ export default function App() {
         try {
           const response = await submitGuess(gameId, currentInput);
           const newGuesses = [...guesses, response.result];
+          const rowIndex = newGuesses.length - 1;
+
           setGuesses(newGuesses);
           setCurrentInput('');
-          setGameStatus(response.status);
-          if (response.status === 'won') showToast('Gewonnen!', 4000);
-          if (response.status === 'lost') showToast('Leider verloren.', 4000);
+          setRevealingRow(rowIndex);
+
+          const revealTotalMs = (WORD_LENGTH - 1) * REVEAL_DELAY_PER_TILE + REVEAL_DURATION;
+          setTimeout(() => {
+            setRevealingRow(null);
+            setGameStatus(response.status);
+            if (response.status === 'won') showToast('Gewonnen!', 4000);
+            if (response.status === 'lost') showToast('Leider verloren.', 4000);
+          }, revealTotalMs);
         } catch (err) {
           showToast(err instanceof Error ? err.message : 'Fehler');
         }
@@ -74,12 +95,12 @@ export default function App() {
         setCurrentInput((prev) => prev + key);
       }
     },
-    [gameId, gameStatus, currentInput, guesses],
+    [gameId, gameStatus, currentInput, guesses, revealingRow],
   );
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') handleKey('enter');
+      if (e.key === 'Enter')          handleKey('enter');
       else if (e.key === 'Backspace') handleKey('del');
       else if (/^[a-zA-Z]$/.test(e.key)) handleKey(e.key.toLowerCase());
     };
@@ -92,42 +113,33 @@ export default function App() {
 
   return (
     <>
-      <header>Wordle</header>
-      <main>
+      <header className="header">
+        <span>Wordle</span>
+        <button
+          className="theme-toggle"
+          onClick={toggleTheme}
+          aria-label="Theme wechseln"
+          data-testid="theme-toggle"
+        >
+          {theme === 'dark' ? '☀️' : '🌙'}
+        </button>
+      </header>
+      <main className="main">
         {toast && <Toast message={toast} />}
         <Board
           guesses={guesses}
           currentInput={currentInput}
           maxAttempts={MAX_ATTEMPTS}
           wordLength={WORD_LENGTH}
+          revealingRow={revealingRow}
         />
         <Keyboard
           letterStatuses={letterStatuses}
           onKey={handleKey}
-          disabled={isGameOver}
+          disabled={isGameOver || revealingRow !== null}
         />
         {isGameOver && (
-          <button
-            onClick={() =>
-              startGame().then((res) => {
-                setGameId(res.gameId);
-                setGuesses([]);
-                setCurrentInput('');
-                setGameStatus('in_progress');
-              })
-            }
-            style={{
-              marginTop: 16,
-              padding: '10px 24px',
-              fontSize: '1rem',
-              fontWeight: 700,
-              background: 'var(--color-correct)',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '6px',
-              cursor: 'pointer',
-            }}
-          >
+          <button className="new-game-btn" onClick={newGame}>
             Neues Spiel
           </button>
         )}

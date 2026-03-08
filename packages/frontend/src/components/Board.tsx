@@ -1,9 +1,9 @@
 import type { GuessResult } from '@wordle/shared';
 
-const STATUS_COLOR: Record<string, string> = {
-  correct: 'var(--color-correct)',
-  present: 'var(--color-present)',
-  absent: 'var(--color-absent)',
+const STATUS_CLASS: Record<string, string> = {
+  correct: 'tile--correct',
+  present: 'tile--present',
+  absent: 'tile--absent',
 };
 
 interface Props {
@@ -11,57 +11,50 @@ interface Props {
   currentInput: string;
   maxAttempts: number;
   wordLength: number;
+  revealingRow: number | null;
 }
 
-export function Board({ guesses, currentInput, maxAttempts, wordLength }: Props) {
-  const rows = Array.from({ length: maxAttempts }, (_, rowIndex) => {
-    const submitted = guesses[rowIndex];
-    const isCurrentRow = rowIndex === guesses.length;
+export function Board({ guesses, currentInput, maxAttempts, wordLength, revealingRow }: Props) {
+  return (
+    <div className="board">
+      {Array.from({ length: maxAttempts }, (_, rowIndex) => {
+        const submitted = guesses[rowIndex];
+        const isCurrentRow = rowIndex === guesses.length;
+        const isRevealing = rowIndex === revealingRow;
 
-    return (
-      <div key={rowIndex} style={{ display: 'flex', gap: '6px' }}>
-        {Array.from({ length: wordLength }, (_, colIndex) => {
-          let letter = '';
-          let bg = 'var(--color-empty)';
-          let border = '2px solid var(--color-border)';
-          let color = 'var(--color-text)';
+        return (
+          <div key={rowIndex} className="board__row">
+            {Array.from({ length: wordLength }, (_, colIndex) => {
+              let letter = '';
+              let className = 'tile';
+              let animationDelay: string | undefined;
 
-          if (submitted) {
-            letter = submitted[colIndex].letter.toUpperCase();
-            bg = STATUS_COLOR[submitted[colIndex].status];
-            border = `2px solid ${bg}`;
-            color = '#fff';
-          } else if (isCurrentRow) {
-            letter = (currentInput[colIndex] ?? '').toUpperCase();
-            if (letter) border = '2px solid #878a8c';
-          }
+              if (submitted) {
+                letter = submitted[colIndex].letter.toUpperCase();
+                className = `tile ${STATUS_CLASS[submitted[colIndex].status]}`;
+                if (isRevealing) {
+                  className += ' tile--revealing';
+                  animationDelay = `${colIndex * 150}ms`;
+                }
+              } else if (isCurrentRow) {
+                letter = (currentInput[colIndex] ?? '').toUpperCase();
+                if (letter) className = 'tile tile--filled';
+              }
 
-          return (
-            <div
-              key={colIndex}
-              data-testid={`tile-${rowIndex}-${colIndex}`}
-              style={{
-                width: 62,
-                height: 62,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '2rem',
-                fontWeight: 700,
-                background: bg,
-                border,
-                color,
-                textTransform: 'uppercase',
-                userSelect: 'none',
-              }}
-            >
-              {letter}
-            </div>
-          );
-        })}
-      </div>
-    );
-  });
-
-  return <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>{rows}</div>;
+              return (
+                <div
+                  key={colIndex}
+                  data-testid={`tile-${rowIndex}-${colIndex}`}
+                  className={className}
+                  style={animationDelay ? { animationDelay } : undefined}
+                >
+                  {letter}
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
 }

@@ -6,10 +6,10 @@ const ROWS = [
   ['del', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'enter'],
 ];
 
-const STATUS_COLOR: Record<LetterStatus, string> = {
-  correct: 'var(--color-correct)',
-  present: 'var(--color-present)',
-  absent: 'var(--color-absent)',
+const STATUS_CLASS: Record<LetterStatus, string> = {
+  correct: 'key--correct',
+  present: 'key--present',
+  absent:  'key--absent',
 };
 
 interface Props {
@@ -20,41 +20,31 @@ interface Props {
 
 export function Keyboard({ letterStatuses, onKey, disabled }: Props) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
+    <div className="keyboard">
       {ROWS.map((row, rowIndex) => (
-        <div key={rowIndex} style={{ display: 'flex', gap: '6px' }}>
+        <div key={rowIndex} className="keyboard__row">
           {row.map((key) => {
             const status = letterStatuses[key];
             const isSpecial = key === 'enter' || key === 'del';
-            const bg = status ? STATUS_COLOR[status] : 'var(--color-key-bg)';
-            const color = status ? '#fff' : 'var(--color-text)';
 
             const testId =
-              key === 'enter'
-                ? 'submit-button'
-                : key === 'del'
-                  ? 'keyboard-key-del'
-                  : `keyboard-key-${key}`;
+              key === 'enter' ? 'submit-button' :
+              key === 'del'   ? 'keyboard-key-del' :
+                                `keyboard-key-${key}`;
+
+            const className = [
+              'key',
+              isSpecial ? 'key--wide' : '',
+              status ? STATUS_CLASS[status] : '',
+            ].filter(Boolean).join(' ');
 
             return (
               <button
                 key={key}
                 data-testid={testId}
+                className={className}
                 onClick={() => onKey(key)}
                 disabled={disabled}
-                style={{
-                  minWidth: isSpecial ? 65 : 43,
-                  height: 58,
-                  border: 'none',
-                  borderRadius: '4px',
-                  background: bg,
-                  color,
-                  fontSize: isSpecial ? '0.75rem' : '1rem',
-                  fontWeight: 700,
-                  cursor: disabled ? 'default' : 'pointer',
-                  textTransform: 'uppercase',
-                  padding: '0 4px',
-                }}
               >
                 {key === 'del' ? '⌫' : key}
               </button>
