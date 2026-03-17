@@ -101,6 +101,66 @@ layout: section
 
 ---
 
+# Was ist Unit Testing?
+
+<v-clicks>
+
+- Testen von einzelnen Units
+- Automatisiert
+- Isoliert
+
+</v-clicks>
+
+---
+
+# Was ist eine Unit?
+
+<v-clicks>
+
+- Der kleinste Baustein einer Applikation
+- z.B. Funktionen oder Klassen
+
+</v-clicks>
+
+---
+
+# Grundannahme Unit Testing
+
+Wenn **alle Units** korrekt funktionieren, dann funktioniert auch die **gesamte Applikation** korrekt.
+
+---
+
+# Vorteile von Unit Testing
+
+<v-clicks>
+
+- **Frühes Erkennen von Fehlern:** Fehler können frühzeitig im Entwicklungsprozess entdeckt und behoben werden
+- **Modularität:** Unit Tests fördern die Entwicklung modularen und wartbaren Codes
+- **Schnelle Rückmeldung:** Entwickler erhalten schnell Rückmeldung über die Korrektheit ihres Codes
+
+</v-clicks>
+
+---
+
+# Integration Tests
+
+> Funktionieren die einzelnen Komponenten auch im Zusammenspiel miteinander?
+
+---
+
+# End-To-End Tests
+
+<v-clicks>
+
+- Simulieren das echte Nutzererlebnis
+- Testen ganzheitliche Geschäftsabläufe
+- **Ziel:** Aufdeckung von Fehlern aus Benutzersicht
+- **Nachteil:** E2E-Tests sind teuer und haben lange Ausführungszeiten – müssen sich also lohnen
+
+</v-clicks>
+
+---
+
 # Was sind E2E Tests?
 
 <v-clicks>
