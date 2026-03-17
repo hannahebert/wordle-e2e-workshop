@@ -122,7 +122,7 @@ layout: two-cols
 <v-clicks>
 
 - Der kleinste Baustein einer Applikation
-- z.B. Funktionen oder Klassen
+- z.B. Komponente, Funktionen oder Klassen
 
 </v-clicks>
 
@@ -291,7 +291,7 @@ describe('Wordle Game', () => {
 
 - Läuft als **Service Worker** im Browser
 - Kein Proxy, keine Code-Änderungen am Frontend
-- Gleiche Mocks für Tests & lokale Entwicklung
+- Gleiche Mocks für Storybook, Tests & lokale Entwicklung
 - Unterstützt REST & GraphQL
 
 </v-clicks>
