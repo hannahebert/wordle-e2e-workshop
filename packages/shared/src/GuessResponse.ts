@@ -4,4 +4,5 @@ import type { GameStatus } from './GameStatus';
 export interface GuessResponse {
   result: GuessResult[];
   status: GameStatus;
+  solution?: string;
 }

@@ -78,7 +78,7 @@ export default function App() {
             setRevealingRow(null);
             setGameStatus(response.status);
             if (response.status === 'won') showToast('Gewonnen!', 4000);
-            if (response.status === 'lost') showToast('Leider verloren.', 4000);
+            if (response.status === 'lost') showToast(`Leider verloren. Das Wort war: ${response.solution?.toUpperCase()}`, 4000);
           }, revealTotalMs);
         } catch (err) {
           showToast(err instanceof Error ? err.message : 'Fehler');

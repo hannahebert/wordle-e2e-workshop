@@ -69,7 +69,7 @@ export function getGame(gameId: string): GameState | null {
 export function submitGuess(
   gameId: string,
   word: string,
-): { result: GuessResult[]; status: GameStatus } | { error: string } {
+): { result: GuessResult[]; status: GameStatus; solution?: string } | { error: string } {
   const game = games.get(gameId);
   if (!game) return { error: 'Game not found' };
   if (game.status !== 'in_progress') return { error: 'Game is already over' };
@@ -85,7 +85,11 @@ export function submitGuess(
     game.status = 'lost';
   }
 
-  return { result, status: game.status };
+  return {
+    result,
+    status: game.status,
+    ...(game.status !== 'in_progress' && { solution: game.word }),
+  };
 }
 
 function toGameState(game: StoredGame): GameState {
@@ -95,5 +99,6 @@ function toGameState(game: StoredGame): GameState {
     maxAttempts: game.maxAttempts,
     guesses: game.guesses,
     status: game.status,
+    ...(game.status !== 'in_progress' && { solution: game.word }),
   };
 }

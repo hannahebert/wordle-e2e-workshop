@@ -7,4 +7,5 @@ export interface GameState {
   maxAttempts: number;
   guesses: GuessResult[][];
   status: GameStatus;
+  solution?: string;
 }
