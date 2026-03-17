@@ -49,6 +49,14 @@ themeConfig:
 > „Werkzeuge sind so gut wie derjenige, der sie benutzt."
 
 ---
+layout: center
+---
+
+<div class="absolute inset-0">
+  <img src="/images/menti.png" class="w-full h-full object-cover" />
+</div>
+
+---
 
 # Agenda
 
