@@ -130,7 +130,16 @@ layout: two-cols
 
 # Grundannahme Unit Testing
 
+<div class="flex items-center gap-10">
+  <div class="flex-1">
+
 Wenn **alle Units** korrekt funktionieren, dann funktioniert auch die **gesamte Applikation** korrekt.
+
+  </div>
+  <div class="flex-1 flex justify-center">
+    <img src="/images/unit.jpg" class="h-56 rounded shadow mx-auto" />
+  </div>
+</div>
 
 ---
 
@@ -148,7 +157,29 @@ Wenn **alle Units** korrekt funktionieren, dann funktioniert auch die **gesamte 
 
 # Integration Tests
 
-> Funktionieren die einzelnen Komponenten auch im Zusammenspiel miteinander?
+ABER Funktionieren die einzelnen Komponenten auch im Zusammenspiel miteinander?
+
+<v-click>
+  <div class="flex-1 flex justify-center">
+    <video autoplay loop muted class="h-56 rounded shadow">
+      <source src="/videos/integration-testing.mp4" type="video/mp4" />
+    </video>
+  </div>
+</v-click>
+
+---
+
+# Integration Tests – Beispiele
+
+<v-clicks>
+
+- **Formular + Validierungsservice** – Zeigt die UI den richtigen Fehler bei ungültiger Eingabe?
+- **Store + Komponente** – Aktualisiert sich die Ansicht korrekt nach einer State-Änderung?
+- **Komponente + API** – Rendert die Liste korrekt nach einem erfolgreichen Fetch?
+- **Router + Auth-Guard** – Wird ein nicht eingeloggter User weitergeleitet?
+
+
+</v-clicks>
 
 ---
 
@@ -156,31 +187,16 @@ Wenn **alle Units** korrekt funktionieren, dann funktioniert auch die **gesamte 
 
 <v-clicks>
 
-- Simulieren das echte Nutzererlebnis
-- Testen ganzheitliche Geschäftsabläufe
-- **Ziel:** Aufdeckung von Fehlern aus Benutzersicht
-- **Nachteil:** E2E-Tests sind teuer und haben lange Ausführungszeiten – müssen sich also lohnen
-
-</v-clicks>
-
----
-
-# Was sind E2E Tests?
-
-<v-clicks>
-
 - Testen die Anwendung **von außen** – wie ein echter User
-- Browser steuert die echte UI
-- Backend, Datenbank, APIs: **alles läuft**
-- Ziel: *„Funktioniert das System als Ganzes?"*
+- Browser steuert die echte UI, Backend & Datenbank laufen mit
+- Simulieren ganzheitliche Geschäftsabläufe aus Nutzersicht
+- **Nachteil:** Langsam und teuer – müssen sich also lohnen
 
 </v-clicks>
-
-<br/>
 
 <v-click>
 
-> E2E Tests sind kein Ersatz für Unit Tests –
+> E2E Tests sind kein Ersatz für Unit oder Integration Tests –
 > sie sind die letzte Sicherheitslinie.
 
 </v-click>
@@ -195,14 +211,17 @@ Wenn **alle Units** korrekt funktionieren, dann funktioniert auch die **gesamte 
 | Integration | Zusammenspiel von Modulen | 🚀 schnell |
 | E2E | Kompletter User Flow | 🐢 langsam |
 
-<v-click>
+---
 
-**E2E sinnvoll für:**
+# Wann sind E2E Tests sinnvoll?
+
+<v-clicks>
+
 - Kritische User Journeys (Login, Checkout, ...)
 - Workflows, die viele Teile verbinden
 - Regressionssicherung nach Releases
 
-</v-click>
+</v-clicks>
 
 ---
 
