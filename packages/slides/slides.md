@@ -68,12 +68,10 @@ layout: section
 # Testing Grundlagen
 
 ---
+layout: two-cols
+---
 
 # Die Testpyramide
-
-<div class="flex justify-center">
-  <img src="/images/testing-pyramid.png" class="h-72 rounded shadow" />
-</div>
 
 <v-clicks>
 
@@ -83,13 +81,15 @@ layout: section
 
 </v-clicks>
 
+::right::
+
+<img src="/images/testing-pyramid.png" class="h-72 rounded shadow mx-auto mt-8" />
+
+---
+layout: two-cols
 ---
 
 # Die Testing Trophy
-
-<div class="flex justify-center">
-  <img src="/images/testing-trophy.png" class="h-72 rounded shadow" />
-</div>
 
 <v-clicks>
 
@@ -98,6 +98,10 @@ layout: section
 - Static Analysis (TypeScript, ESLint) als Basis
 
 </v-clicks>
+
+::right::
+
+<img src="/images/testing-trophy.png" class="h-72 rounded shadow mx-auto mt-8" />
 
 ---
 

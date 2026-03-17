@@ -3,33 +3,85 @@
   --slidev-theme-secondary: #128589 !important;
   --c-primary: #2D6CC7 !important;
   --c-secondary: #128589 !important;
+  --slidev-slide-scale: 1 !important;
+}
+
+/* Basis-Schriftgröße hochsetzen */
+.slidev-layout {
+  padding: 2.5rem 4rem !important;
+  font-size: 1.5rem !important;
+  line-height: 1.8 !important;
 }
 
 h1 {
   color: #2D6CC7 !important;
+  font-size: 2.8rem !important;
+  margin-bottom: 2rem !important;
+  line-height: 1.2 !important;
 }
 
 h2 {
   color: #2D6CC7 !important;
+  font-size: 2.2rem !important;
+  margin-bottom: 1.5rem !important;
 }
 
 h3 {
   color: #128589 !important;
+  font-size: 1.8rem !important;
 }
 
+/* Listen deutlich größer */
+.slidev-layout ul,
+.slidev-layout ol {
+  font-size: 1.5rem !important;
+  line-height: 2 !important;
+  margin-top: 0.8rem !important;
+}
+
+.slidev-layout li {
+  margin-bottom: 0.8rem !important;
+}
+
+/* Paragraph-Text */
+.slidev-layout p {
+  font-size: 1.5rem !important;
+  line-height: 1.8 !important;
+}
+
+/* Tabellen */
+.slidev-layout table {
+  font-size: 1.3rem !important;
+  width: 100% !important;
+  margin-top: 1.5rem !important;
+}
+
+/* Blockquotes */
 blockquote {
-  border-left: 4px solid #128589 !important;
+  border-left: 5px solid #128589 !important;
   color: #128589 !important;
+  padding: 0.8rem 1.5rem !important;
+  margin-top: 2rem !important;
+  font-size: 1.5rem !important;
 }
 
 blockquote p {
   color: #128589 !important;
+  font-size: 1.5rem !important;
 }
 
 strong {
   color: #2D6CC7 !important;
 }
 
+/* Section layout */
 .slidev-layout.section h1 {
   color: #2D6CC7 !important;
+  font-size: 3.5rem !important;
+}
+
+/* Code blocks */
+.slidev-layout pre {
+  font-size: 1.05rem !important;
+  line-height: 1.6 !important;
 }
