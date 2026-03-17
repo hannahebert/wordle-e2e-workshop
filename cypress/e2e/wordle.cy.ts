@@ -25,6 +25,7 @@ describe('Wordle', () => {
       cy.intercept('POST', '/api/game').as('newGame');
       cy.visit('/');
       cy.wait('@newGame');
+      cy.get('[data-testid="keyboard-key-a"]').should('be.enabled');
     });
 
     it('shows letters in tiles when clicking virtual keyboard', () => {
@@ -47,6 +48,29 @@ describe('Wordle', () => {
       cy.get('[data-testid="keyboard-key-l"]').click();
 
       cy.get('[data-testid="keyboard-key-del"]').click();
+
+      cy.get('[data-testid="tile-0-2"]')
+        .should('have.text', '')
+        .and('not.have.class', 'tile--filled');
+      cy.get('[data-testid="tile-0-1"]')
+        .should('have.text', 'A')
+        .and('have.class', 'tile--filled');
+    });
+
+    it('shows letters in tiles when typing on physical keyboard', () => {
+      const letters = ['H', 'A', 'L', 'L', 'O'];
+
+      cy.get('body').type('hallo');
+
+      letters.forEach((letter, col) => {
+        cy.get(`[data-testid="tile-0-${col}"]`)
+          .should('have.text', letter)
+          .and('have.class', 'tile--filled');
+      });
+    });
+
+    it('removes last letter when pressing Backspace', () => {
+      cy.get('body').type('hal{backspace}');
 
       cy.get('[data-testid="tile-0-2"]')
         .should('have.text', '')
