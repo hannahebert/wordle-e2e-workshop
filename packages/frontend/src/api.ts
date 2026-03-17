@@ -1,6 +1,6 @@
 import type { NewGameResponse, GuessResponse, GameState } from '@wordle/shared';
 
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_API_URL ?? '';
 
 export async function startGame(): Promise<NewGameResponse> {
   const res = await fetch(`${API_URL}/api/game`, { method: 'POST' });
