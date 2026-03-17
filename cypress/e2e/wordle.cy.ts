@@ -116,4 +116,124 @@ describe('Wordle', () => {
         .and('not.have.class', 'key--absent');
     });
   });
+
+  describe('Game End', () => {
+    const gameId = 'test-game-456';
+
+    beforeEach(() => {
+      cy.intercept('POST', '/api/game', {
+        statusCode: 200,
+        body: { gameId, wordLength: 5, maxAttempts: 6 },
+      }).as('newGame');
+
+      cy.visit('/');
+      cy.wait('@newGame');
+    });
+
+    function typeWord(word: string) {
+      for (const letter of word) {
+        cy.get(`[data-testid="keyboard-key-${letter}"]`).click();
+      }
+      cy.get('[data-testid="submit-button"]').click();
+    }
+
+    it('shows winning message when game is won', () => {
+      const responses = [
+        {
+          result: [
+            { letter: 's', status: 'absent' },
+            { letter: 't', status: 'absent' },
+            { letter: 'e', status: 'absent' },
+            { letter: 'r', status: 'absent' },
+            { letter: 'n', status: 'absent' },
+          ],
+          status: 'in_progress',
+        },
+        {
+          result: [
+            { letter: 'k', status: 'correct' },
+            { letter: 'r', status: 'correct' },
+            { letter: 'a', status: 'correct' },
+            { letter: 'f', status: 'correct' },
+            { letter: 't', status: 'correct' },
+          ],
+          status: 'won',
+        },
+      ];
+
+      let callCount = 0;
+      cy.intercept('POST', `/api/game/${gameId}/guess`, (req) => {
+        req.reply({ statusCode: 200, body: responses[callCount++] });
+      }).as('guess');
+
+      // Guess 1: "stern"
+      typeWord('stern');
+      cy.wait('@guess');
+
+      // Wait for reveal animation to finish — keyboard re-enables
+      cy.get('[data-testid="submit-button"]').should('not.be.disabled');
+
+      // Guess 2: "kraft" — wins the game
+      typeWord('kraft');
+      cy.wait('@guess');
+
+      // All tiles in row 1 should be correct
+      for (let col = 0; col < 5; col++) {
+        cy.get(`[data-testid="tile-1-${col}"]`).should('have.class', 'tile--correct');
+      }
+
+      // Winning toast
+      cy.get('[data-testid="toast-message"]').should('have.text', 'Gewonnen!');
+
+      // Keyboard disabled
+      cy.get('[data-testid="submit-button"]').should('be.disabled');
+
+      // "Neues Spiel" button visible
+      cy.contains('Neues Spiel').should('be.visible');
+    });
+
+    it('shows solution when game is lost', () => {
+      const words = ['stern', 'blume', 'audio', 'lymph', 'fixen', 'joker'];
+
+      const responses = words.map((word, i) => ({
+        result: [...word].map((letter) => ({ letter, status: 'absent' })),
+        status: i < 5 ? 'in_progress' : 'lost',
+        ...(i === 5 ? { solution: 'kraft' } : {}),
+      }));
+
+      let callCount = 0;
+      cy.intercept('POST', `/api/game/${gameId}/guess`, (req) => {
+        req.reply({ statusCode: 200, body: responses[callCount++] });
+      }).as('guess');
+
+      words.forEach((word, i) => {
+        typeWord(word);
+        cy.wait('@guess');
+
+        if (i < 5) {
+          // Wait for reveal animation to finish before typing next word
+          cy.get('[data-testid="submit-button"]').should('not.be.disabled');
+        }
+      });
+
+      // Loss toast with solution
+      cy.get('[data-testid="toast-message"]').should(
+        'have.text',
+        'Leider verloren. Das Wort war: KRAFT',
+      );
+
+      // All 6 rows filled with absent tiles
+      for (let row = 0; row < 6; row++) {
+        for (let col = 0; col < 5; col++) {
+          cy.get(`[data-testid="tile-${row}-${col}"]`).should('have.class', 'tile--absent');
+        }
+      }
+
+      // Keyboard disabled
+      cy.get('[data-testid="submit-button"]').should('be.disabled');
+
+      // "Neues Spiel" button visible
+      cy.contains('Neues Spiel').should('be.visible');
+    });
+  });
 });
