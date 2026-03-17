@@ -7,11 +7,46 @@ drawings:
   persist: false
 transition: slide-left
 mdc: true
+colorSchema: light
+themeConfig:
+  primary: '#2D6CC7'
 ---
 
-# E2E Testing Workshop
+# Smarter Testen mit Cypress
 
-### Mit Cypress & AI
+## Wie KI den Einstieg erleichtert
+
+---
+
+# Hannah Ebert
+
+**Software Architect · adesso SE**
+
+<br/>
+
+- Fokus auf Softwarearchitektur & Qualität
+- E2E Testing & Developer Experience
+- AI-gestützte Entwicklung
+
+<br/>
+
+> „Erst verstehen. Dann automatisieren."
+
+---
+
+# Florian Sowade
+
+**Co-Founder & Software Entwickler · Suora GmbH**
+
+<br/>
+
+- Softwareentwicklung & Produktaufbau
+- E2E Testing in der Praxis
+- AI-Tooling im Entwickleralltag
+
+<br/>
+
+> „Werkzeuge sind so gut wie derjenige, der sie benutzt."
 
 ---
 

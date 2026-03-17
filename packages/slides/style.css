@@ -1,0 +1,35 @@
+:root {
+  --slidev-theme-primary: #2D6CC7 !important;
+  --slidev-theme-secondary: #128589 !important;
+  --c-primary: #2D6CC7 !important;
+  --c-secondary: #128589 !important;
+}
+
+h1 {
+  color: #2D6CC7 !important;
+}
+
+h2 {
+  color: #2D6CC7 !important;
+}
+
+h3 {
+  color: #128589 !important;
+}
+
+blockquote {
+  border-left: 4px solid #128589 !important;
+  color: #128589 !important;
+}
+
+blockquote p {
+  color: #128589 !important;
+}
+
+strong {
+  color: #2D6CC7 !important;
+}
+
+.slidev-layout.section h1 {
+  color: #2D6CC7 !important;
+}
