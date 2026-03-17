@@ -254,6 +254,19 @@ ABER Funktionieren die einzelnen Komponenten auch im Zusammenspiel miteinander?
 </v-clicks>
 
 ---
+layout: center
+---
+
+<div class="absolute inset-0">
+  <img src="/images/stars.jpg" class="w-full h-full object-cover" />
+  <div class="absolute inset-0 bg-black/30" />
+</div>
+<div class="relative flex flex-col items-center gap-4 text-center">
+  <div class="text-6xl font-bold text-white drop-shadow-lg">Die Anwendung</div>
+  <div class="text-2xl text-white/80 drop-shadow">Schauen wir uns Wordle zuerst an</div>
+</div>
+
+---
 layout: section
 ---
 
