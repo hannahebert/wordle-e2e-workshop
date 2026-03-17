@@ -8,6 +8,7 @@
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:frontend": "npm run dev --workspace=packages/frontend",
     "dev:backend": "npm run dev --workspace=packages/backend",
+    "dev:slides": "npm run dev --workspace=packages/slides",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
