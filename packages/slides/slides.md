@@ -71,22 +71,31 @@ layout: section
 
 # Die Testpyramide
 
-```
-         /\
-        /  \
-       / E2E \          ← wenige, langsam, teuer
-      /--------\
-     /Integration\      ← mittel
-    /--------------\
-   /   Unit Tests   \   ← viele, schnell, günstig
-  /------------------\
-```
+<div class="flex justify-center">
+  <img src="/images/testing-pyramid.png" class="h-72 rounded shadow" />
+</div>
 
 <v-clicks>
 
-- **Unit Tests** – isolierte Funktionen, kein I/O
-- **Integrationstests** – Zusammenspiel von Komponenten
-- **E2E Tests** – das echte System aus Nutzerperspektive
+- Klassischer Ansatz: **viele Unit Tests, wenige E2E**
+- Je höher, desto langsamer, teurer und brüchiger
+- Fokus auf schnelles Feedback durch isolierte Tests
+
+</v-clicks>
+
+---
+
+# Die Testing Trophy
+
+<div class="flex justify-center">
+  <img src="/images/testing-trophy.png" class="h-72 rounded shadow" />
+</div>
+
+<v-clicks>
+
+- Moderner Gegenentwurf: **Fokus auf Integrationstests**
+- Integrationstests geben das meiste Vertrauen pro Aufwand
+- Static Analysis (TypeScript, ESLint) als Basis
 
 </v-clicks>
 
