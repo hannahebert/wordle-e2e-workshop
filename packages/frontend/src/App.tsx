@@ -111,6 +111,10 @@ export default function App() {
   const letterStatuses = buildLetterStatuses(guesses);
   const isGameOver = gameStatus !== 'in_progress';
 
+  if (!gameId) {
+    return <>Loading…</>
+  }
+
   return (
     <>
       <header className="header">
