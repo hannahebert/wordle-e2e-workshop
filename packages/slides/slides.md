@@ -275,6 +275,22 @@ layout: center
 </div>
 
 ---
+layout: center
+---
+
+<div class="absolute inset-0">
+  <img src="/images/stars.jpg" class="w-full h-full object-cover" />
+  <div class="absolute inset-0 bg-black/30" />
+</div>
+<div class="relative flex flex-col items-center gap-4 text-center">
+  <div class="text-4xl font-bold text-white drop-shadow-lg">Repository</div>
+  <a href="https://github.com/hannahebert/wordle-e2e-workshop" target="_blank" class="text-lg text-white/80 hover:text-white drop-shadow !no-underline !border-none">
+    github.com/hannahebert/wordle-e2e-workshop
+  </a>
+  <img src="/images/repo-qr.png" class="w-52 h-52 rounded-lg shadow-2xl" alt="QR-Code zum Repository" />
+</div>
+
+---
 layout: section
 ---
 
