@@ -11,3 +11,4 @@
 | 7       | Erste Tests                                            | Flo           |
 | 8       | Analyse erste Tests                                    | Flo           |
 | 9       | Weitere Grundlagen Cypress                             | Hannah        |
+| 10      | AI (warum, grenzen, …)                                 | Flo           |
