@@ -6,5 +6,6 @@ export default defineConfig({
     // cy.visit('/') navigiert dann automatisch dorthin.
     baseUrl: 'http://localhost:5173',
     supportFile: 'cypress/support/e2e.ts',
+    viewportHeight: 900,
   },
 });
