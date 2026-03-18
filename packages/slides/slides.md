@@ -303,6 +303,18 @@ layout: center
 </div>
 
 ---
+layout: center
+---
+
+<div class="flex flex-col items-center gap-6 text-center">
+  <div class="text-4xl" style="color:#2D6CC7">Die Cypress Philosophie</div>
+
+  <v-clicks>
+    <div class="text-6xl" style="color:#128589">Developer Experience</div>
+  </v-clicks>
+</div>
+
+---
 
 # Batteries Included – Das Cypress Setup
 
@@ -319,14 +331,6 @@ layout: center
 
 ---
 
-# Cypress installieren
-
-```bash {1|2}
-$ npm install --save-dev cypress
-$ npx cypress open
-```
-
----
 
 # Die Cypress Desktop App
 
@@ -364,49 +368,255 @@ layout: section
 
 # Cypress Setup
 
-
-
-
 ---
 
-# Cypress – Grundstruktur
 
-```js
-describe('Wordle Game', () => {
-  it('sollte ein Wort raten können', () => {
-    cy.visit('/')
+# Cypress installieren
 
-    cy.get('[data-testid="tile-input"]').type('CRANE')
-    cy.get('[data-testid="submit-btn"]').click()
-
-    cy.get('[data-testid="tile-0"]').should('have.class', 'correct')
-  })
-})
+```bash {1|2}
+$ npm install --save-dev cypress
+$ npx cypress open
 ```
 
-<v-click>
-
-- `describe` / `it` – bekannt aus Jest/Mocha
-- `cy.get()` – Element selektieren
-- `cy.visit()` – URL aufrufen
-- `.should()` – Assertion
-
-</v-click>
 
 ---
 layout: center
 ---
 
-<div class="flex flex-col items-center gap-6 text-center">
-  <div class="text-6xl font-bold" style="color:#2D6CC7">Developer Experience</div>
-  <div class="text-3xl font-semibold" style="color:#128589">Die Cypress Philosophie</div>
+<div class="absolute inset-0">
+  <img src="/images/stars.jpg" class="w-full h-full object-cover" />
+  <div class="absolute inset-0 bg-black/30" />
+</div>
+<div class="relative flex flex-col items-center gap-4 text-center">
+  <div class="text-6xl font-bold text-white drop-shadow-lg">Let's see the magic</div>
 </div>
 
----
-layout: section
+
 ---
 
-# AI & Testing
+# Commands: Query vs. Non-Query
+
+<v-clicks>
+
+- **Query**: Elemente finden
+- **Non-Query**: Aktionen ausführen
+
+</v-clicks>
+
+<v-click>
+
+=> Query Commands geben ein Element zurück, Non-Query Commands nicht.
+
+</v-click>
+
+<v-click>
+
+```js
+cy.get('button')      // Query Command
+  .click();           // Non-Query Command
+```
+
+</v-click>
+
+---
+
+# Get vs. Find vs. Contains
+
+<v-clicks>
+
+- **`cy.get()`** - Findet ein Element
+- **`cy.find()`** - Findet ein Kind-Element
+- **`cy.contains()`** - Findet ein Element anhand des Textes
+
+</v-clicks>
+
+<v-click>
+
+```js
+cy.contains('Bingo');
+
+cy.get('[data-cy="login-form"]')
+  .find('h3')
+  .should('contain', 'Anmeldung');
+```
+
+</v-click>
+
+---
+
+# Chain of Commands – Retry Logic
+
+```js
+cy.get('my-selector')
+  .should('have.length', 5)
+  .eq(1)
+  .should('contain', 'magic');
+```
+
+---
+
+# Chain of Commands – Retry Logic
+
+```js {1}
+cy.get('my-selector')
+```
+
+---
+
+# Chain of Commands – Retry Logic
+
+```js {1-2}
+cy.get('my-selector')
+  .should('have.length', 5)    // FAIL
+```
+
+---
+
+# Chain of Commands – Retry Logic
+
+```js {1}
+cy.get('my-selector')
+```
+
+---
+
+# Chain of Commands – Retry Logic
+
+```js {1-2}
+cy.get('my-selector')
+  .should('have.length', 5)
+```
+
+---
+
+# Chain of Commands – Retry Logic
+
+```js {1-3}
+cy.get('my-selector')
+  .should('have.length', 5)
+  .eq(1)
+```
+
+---
+
+# Chain of Commands – Retry Logic
+
+```js {1-4}
+cy.get('my-selector')
+  .should('have.length', 5)
+  .eq(1)
+  .should('contain', 'magic');
+```
+
+---
+
+# Chain of Commands – Retry Logic
+
+```js {1-4}
+cy.get('my-selector')
+  .should('have.length', 5)
+  .eq(1)
+  .should('contain', 'magic'); // FAIL
+```
+
+---
+
+# Chain of Commands – Retry Logic
+
+```js {1}
+cy.get('my-selector')
+```
+
+---
+
+# Chain of Commands – Retry Logic
+
+```js {1-2}
+cy.get('my-selector')
+  .should('have.length', 5)
+```
+
+---
+
+# Chain of Commands – Retry Logic
+
+```js {1-3}
+cy.get('my-selector')
+  .should('have.length', 5)
+  ...
+```
+
+---
+layout: center
+---
+
+# cy.request vs cy.intercept
+
+---
+
+# cy.request – Direkt API Testen
+
+**Zweck:** HTTP-Anfragen direkt senden und prüfen.
+
+**Einsatzgebiet:**
+
+<v-clicks>
+
+- Backend-APIs testen
+- Testdaten vorbereiten (z. B. Benutzer erstellen)
+- Systemzustände prüfen
+
+</v-clicks>
+
+---
+
+# cy.request – Beispiel
+
+```js {1|1-2|1-6}
+cy.request('POST', '/api/login',
+            { username: 'test', password: 'test123' })
+  .then((response) => {
+    expect(response.status).to.eq(200);
+    expect(response.body).to.have.property('token');
+  });
+```
+
+---
+
+# cy.intercept – Netzwerkanfragen Steuern
+
+**Zweck:**
+
+<v-clicks>
+
+- Anfragen abfangen und Stub- oder Mock-Daten verwenden
+- Netzwerkverkehr überwachen
+
+</v-clicks>
+
+<v-click>
+
+**Einsatzgebiet:**
+
+- API-Fehler simulieren
+- Tests isolieren (kein echter Backend-Aufruf)
+- Frontend-Integration testen
+
+</v-click>
+
+---
+
+# cy.intercept – Beispiel
+
+```js {1|1-2|1-2,4|1-7}
+cy.intercept('GET', '/api/data', { fixture: 'data.json' })
+             .as('getData');
+
+cy.visit('/dashboard');
+cy.wait('@getData').then((interception) => {
+  expect(interception.response.statusCode).to.eq(200);
+});
+```
 
 ---
 
