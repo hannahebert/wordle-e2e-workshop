@@ -291,25 +291,81 @@ layout: center
 </div>
 
 ---
-layout: section
+layout: center
 ---
 
-# Cypress Intro
+<div class="absolute inset-0">
+  <img src="/images/stars.jpg" class="w-full h-full object-cover" />
+  <div class="absolute inset-0 bg-black/30" />
+</div>
+<div class="relative flex flex-col items-center gap-4 text-center">
+  <div class="text-6xl font-bold text-white drop-shadow-lg">Cypress Intro</div>
+</div>
 
 ---
 
-# Cypress – Batteries Included
+# Batteries Included – Das Cypress Setup
 
 <v-clicks>
 
-- **Test Runner** direkt im Browser – kein Selenium/WebDriver
-- **Automatisches Warten** – kein manuelles `wait`
-- **Time Travel Debugging** – jeder Schritt als Screenshot
-- **Netzwerk-Intercepting** – Requests abfangen & mocken
-- **Component Testing** – nicht nur E2E
-- **Dashboard** – CI-Integration, Parallelisierung
+- Testing Framework: Mocha
+- Assertion Library: Chai, Chai jQuery, Chai-Sinon
+- Launcher / Test Runner
+- Reporter
+- Browser: Electron
+- Proxy (für Request Stubbing)
 
 </v-clicks>
+
+---
+
+# Cypress installieren
+
+```bash {1|2}
+$ npm install --save-dev cypress
+$ npx cypress open
+```
+
+---
+
+# Die Cypress Desktop App
+
+<v-clicks>
+
+- Vereinfacht das Schreiben der Tests
+- Visuell aufbereitetes Feedback
+- Timetravel
+- Übersichtliches Debugging
+
+</v-clicks>
+
+---
+
+# Sehr einfaches Mocking / Stubbing
+
+Wenn die Realität mal wieder nicht perfekt ist...
+
+---
+
+# Wundervolle Dokumentation
+
+<v-clicks>
+
+- ... um Cypress zu lernen
+- ... um die Best Practices zu erfahren
+- ... um CI aufzusetzen
+- ...
+
+</v-clicks>
+
+---
+layout: section
+---
+
+# Cypress Setup
+
+
+
 
 ---
 
@@ -336,6 +392,15 @@ describe('Wordle Game', () => {
 - `.should()` – Assertion
 
 </v-click>
+
+---
+layout: center
+---
+
+<div class="flex flex-col items-center gap-6 text-center">
+  <div class="text-6xl font-bold" style="color:#2D6CC7">Developer Experience</div>
+  <div class="text-3xl font-semibold" style="color:#128589">Die Cypress Philosophie</div>
+</div>
 
 ---
 layout: section
