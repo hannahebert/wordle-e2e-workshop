@@ -290,6 +290,7 @@ layout: center
   <img src="/images/repo-qr.png" class="w-52 h-52 rounded-lg shadow-2xl" alt="QR-Code zum Repository" />
 </div>
 
+
 ---
 layout: center
 ---
@@ -379,6 +380,55 @@ $ npx cypress open
 ```
 
 
+
+---
+layout: center
+---
+
+<div class="absolute inset-0">
+  <img src="/images/stars.jpg" class="w-full h-full object-cover" />
+  <div class="absolute inset-0 bg-black/30" />
+</div>
+<div class="relative flex flex-col items-center gap-4 text-center">
+  <div class="text-6xl font-bold text-white drop-shadow-lg">Testing & AI</div>
+</div>
+
+---
+
+# Was nutzen wir?
+
+<v-clicks>
+
+- **Claude Code** (Anthropic) – direkt im Terminal/IDE
+- AI-gestützte Code-Generierung für Testfälle
+- Kontextbewusstes Refactoring & Review
+
+</v-clicks>
+
+<br/>
+
+<v-click>
+
+**Ziel heute:** AI als Pair-Programmer nutzen –
+nicht als Blackbox, sondern als Werkzeug das wir verstehen.
+
+</v-click>
+
+---
+
+# Vorteile: AI beim Testing
+
+<v-clicks>
+
+- 🚀 **Schneller Einstieg** – Boilerplate & Struktur generieren
+- 🔍 **Edge Cases** – AI schlägt Szenarien vor, die man übersieht
+- 📖 **Erklärungen** – unbekannte APIs sofort verstehen
+- 🔄 **Refactoring** – Tests verbessern & vereinfachen
+- 💡 **Ideen** – „Welche Tests fehlen noch?"
+
+</v-clicks>
+
+
 ---
 layout: center
 ---
@@ -441,6 +491,20 @@ cy.get('[data-cy="login-form"]')
 ```
 
 </v-click>
+
+
+---
+layout: center
+---
+
+<div class="absolute inset-0">
+  <img src="/images/stars.jpg" class="w-full h-full object-cover" />
+  <div class="absolute inset-0 bg-black/30" />
+</div>
+<div class="relative flex flex-col items-center gap-4 text-center">
+  <div class="text-6xl font-bold text-white drop-shadow-lg">Ab zum nächsten Test</div>
+</div>
+
 
 ---
 
@@ -550,6 +614,18 @@ cy.get('my-selector')
 layout: center
 ---
 
+<div class="absolute inset-0">
+  <img src="/images/stars.jpg" class="w-full h-full object-cover" />
+  <div class="absolute inset-0 bg-black/30" />
+</div>
+<div class="relative flex flex-col items-center gap-4 text-center">
+  <div class="text-6xl font-bold text-white drop-shadow-lg">Zurück zum Doing... </div>
+</div>
+
+---
+layout: center
+---
+
 # cy.request vs cy.intercept
 
 ---
@@ -618,40 +694,19 @@ cy.wait('@getData').then((interception) => {
 });
 ```
 
----
-
-# Was nutzen wir?
-
-<v-clicks>
-
-- **Claude Code** (Anthropic) – direkt im Terminal/IDE
-- AI-gestützte Code-Generierung für Testfälle
-- Kontextbewusstes Refactoring & Review
-
-</v-clicks>
-
-<br/>
-
-<v-click>
-
-**Ziel heute:** AI als Pair-Programmer nutzen –
-nicht als Blackbox, sondern als Werkzeug das wir verstehen.
-
-</v-click>
 
 ---
+layout: center
+---
 
-# Vorteile: AI beim Testing
+<div class="absolute inset-0">
+  <img src="/images/stars.jpg" class="w-full h-full object-cover" />
+  <div class="absolute inset-0 bg-black/30" />
+</div>
+<div class="relative flex flex-col items-center gap-4 text-center">
+  <div class="text-6xl font-bold text-white drop-shadow-lg">Zurück zu AI</div>
+</div>
 
-<v-clicks>
-
-- 🚀 **Schneller Einstieg** – Boilerplate & Struktur generieren
-- 🔍 **Edge Cases** – AI schlägt Szenarien vor, die man übersieht
-- 📖 **Erklärungen** – unbekannte APIs sofort verstehen
-- 🔄 **Refactoring** – Tests verbessern & vereinfachen
-- 💡 **Ideen** – „Welche Tests fehlen noch?"
-
-</v-clicks>
 
 ---
 
@@ -719,12 +774,6 @@ nicht als Blackbox, sondern als Werkzeug das wir verstehen.
 </v-clicks>
 
 ---
-layout: section
----
-
-# Wie starten wir?
-
----
 
 # Warum Grundlagen zuerst?
 
@@ -743,15 +792,3 @@ layout: section
 **Erst verstehen. Dann automatisieren. Dann mit AI beschleunigen.**
 
 </v-click>
-
----
-layout: center
----
-
-# Let's go! 🚀
-
-### Öffnet das Wordle-Projekt und wir legen los.
-
-```bash
-npm run dev
-```
