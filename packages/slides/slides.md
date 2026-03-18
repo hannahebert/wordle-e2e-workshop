@@ -338,34 +338,6 @@ describe('Wordle Game', () => {
 </v-click>
 
 ---
-
-# Backend-Mocking mit MSW
-
-**Mock Service Worker** – Requests auf Netzwerkebene abfangen
-
-<v-clicks>
-
-- Läuft als **Service Worker** im Browser
-- Kein Proxy, keine Code-Änderungen am Frontend
-- Gleiche Mocks für Storybook, Tests & lokale Entwicklung
-- Unterstützt REST & GraphQL
-
-</v-clicks>
-
-<v-click>
-
-```js
-// handler.ts
-http.get('/api/word', () => {
-  return HttpResponse.json({ word: 'CRANE' })
-})
-```
-
-> In Cypress: `cy.intercept()` als leichtgewichtige Alternative
-
-</v-click>
-
----
 layout: section
 ---
 
