@@ -36,17 +36,17 @@ themeConfig:
 
 # Florian Sowade
 
-**Co-Founder & Software Entwickler · Suora GmbH**
+**Co-Founder · Suora GmbH**
 
 <br/>
 
-- Softwareentwicklung & Produktaufbau
-- E2E Testing in der Praxis
-- AI-Tooling im Entwickleralltag
+- Hilft Teams, Software sinnvoll zu bauen (nicht nur technisch)
+- Glaubt an Tests, wenn sie im Alltag helfen
+- Nutzt KI als Werkzeug – nicht als Abkürzung
 
 <br/>
 
-> „Werkzeuge sind so gut wie derjenige, der sie benutzt."
+> „Wenn Tests weh tun, haben wir sie falsch gebaut."
 
 ---
 layout: center
