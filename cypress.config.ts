@@ -5,5 +5,6 @@ export default defineConfig({
     // Die baseUrl ist die Adresse, auf der das Frontend läuft.
     // cy.visit('/') navigiert dann automatisch dorthin.
     baseUrl: 'http://localhost:5173',
+    supportFile: 'cypress/support/e2e.ts',
   },
 });
