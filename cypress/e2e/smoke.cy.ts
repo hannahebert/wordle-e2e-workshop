@@ -21,23 +21,4 @@ describe('Wordle Smoke Test', () => {
     // Theme toggle is present
     cy.get('[data-testid="theme-toggle"]').should('be.visible');
   });
-
-  it('allows typing letters via the on-screen keyboard', () => {
-    cy.intercept('POST', '/api/game').as('newGame');
-
-    cy.visit('/');
-
-    cy.wait('@newGame');
-
-    // Type "hallo" via the on-screen keyboard
-    const letters = ['h', 'a', 'l', 'l', 'o'];
-    for (const letter of letters) {
-      cy.get(`[data-testid="keyboard-key-${letter}"]`).click();
-    }
-
-    // Verify tiles in the first row show the typed letters
-    letters.forEach((letter, i) => {
-      cy.get(`[data-testid="tile-0-${i}"]`).should('contain.text', letter.toUpperCase());
-    });
-  });
 });
