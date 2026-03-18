@@ -478,5 +478,5 @@ layout: center
 ### Öffnet das Wordle-Projekt und wir legen los.
 
 ```bash
-npm run dev --workspace=packages/frontend
+npm run dev
 ```
