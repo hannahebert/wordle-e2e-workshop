@@ -27,6 +27,7 @@ themeConfig:
 - Fokus auf Softwarearchitektur & Qualität
 - E2E Testing & Developer Experience
 - AI-gestützte Entwicklung
+- hannah.ebert@adesso.de
 
 <br/>
 
@@ -43,6 +44,7 @@ themeConfig:
 - Hilft Teams, Software sinnvoll zu bauen (nicht nur technisch)
 - Glaubt an Tests, wenn sie im Alltag helfen
 - Nutzt KI als Werkzeug – nicht als Abkürzung
+- f.sowade@suora.com
 
 <br/>
 
